@@ -1,46 +1,17 @@
+import axios from "axios";
 
-
-const API_URL =
-
-  import.meta.env.VITE_API_URL || "http://localhost:3000";
-
-
+export const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000",
+  timeout: 10000,
+});
 
 export async function crearEvento(datos) {
-
-  const respuesta = await fetch(`${API_URL}/registros`, {
-
-    method: "POST",
-
-    headers: {
-
-      "Content-Type": "application/json",
-
-    },
-
-    body: JSON.stringify(datos),
-
-  });
-
-
-
-  const resultado = await respuesta.json();
-
-
-
-  if (!respuesta.ok) {
-
-    throw new Error(
-
-      resultado.error || "No se pudo registrar el evento."
-
-    );
-
+  try {
+    const respuesta = await api.post("/registros", datos);
+    return respuesta.data;
+  } catch (error) {
+    const mensaje =
+      error.response?.data?.error || "No se pudo registrar el evento.";
+    throw new Error(mensaje, { cause: error });
   }
-
-
-
-  return resultado;
-
 }
-
