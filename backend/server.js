@@ -7,7 +7,7 @@ const { randomUUID } = require("node:crypto");
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 const FILE_PATH = process.env.DATA_FILE || path.join(__dirname, "eventos.json");
-const CATEGORIAS = ["Deportes", "Medio Ambiente", "Cultural", "Salud"];
+const CATEGORIAS = ["Cultural", "Deportiva", "Ambiental", "Bienestar"];
 
 app.use(cors());
 app.use(express.json());
